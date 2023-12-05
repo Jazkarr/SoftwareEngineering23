@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotto List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Lotto List</h1>
+    </header>
+
+    {% include 'admin_nav.html' %}
+
+    <main>
+        <ul>
+            {% for lotto in lottos %}
+                <li>
+                    <strong>{{ lotto.name }}</strong>
+                    <p>{{ lotto.description }}</p>
+                    <p>Price Per Ticket: ${{ lotto.pricePerTicket }}</p>
+                    <p>Start Date: {{ lotto.startDate }}</p>
+                    <p>End Date: {{ lotto.endDate }}</p><br>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+
+</body>
+</html>
