@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from datetime import datetime
+import random
 
 #-------- Create the databases --------
 app = Flask(__name__)
@@ -220,7 +221,8 @@ def user_dashboard():
 
 @app.route('/admin_dashboard')
 def admin_dashboard():
-    return render_template('admin_dashboard.html')
+    lottos = Lotto.query.all()
+    return render_template('admin_dashboard.html', current_user=current_user, lottos=lottos)
 
 # Create customer profile
 @app.route('/customer_profile', methods=['GET'])
@@ -298,6 +300,11 @@ def purchase(lotto_id):
 
     return render_template('purchase.html', lotto=lotto)
 
+# random number generator
+@app.route("/random_number")
+def random_number():
+    random_numbers = random.sample(range(1,51),5)
+    return render_template('random.html',random_numbers = random_numbers )
 
 #-------- Main --------
 if __name__ == '__main__':
